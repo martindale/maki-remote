@@ -1,5 +1,5 @@
 {
-  "name": "maki-remotes",
+  "name": "maki-remote",
   "version": "0.0.1",
   "description": "bind to a remote service directly within a maki app",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/martindale/maki-remotes.git"
+    "url": "https://github.com/martindale/maki-remote.git"
   },
   "keywords": [
     "maki",
@@ -24,9 +24,9 @@
   "author": "Eric Martindale",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/martindale/maki-remotes/issues"
+    "url": "https://github.com/martindale/maki-remote/issues"
   },
-  "homepage": "https://github.com/martindale/maki-remotes",
+  "homepage": "https://github.com/martindale/maki-remote",
   "dependencies": {
     "restler": "^3.3.0"
   },
