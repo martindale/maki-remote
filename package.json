@@ -1,0 +1,38 @@
+{
+  "name": "maki-remotes",
+  "version": "0.0.0",
+  "description": "bind to a remote service directly within a maki app",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/martindale/maki-remotes.git"
+  },
+  "keywords": [
+    "maki",
+    "remote",
+    "http",
+    "service",
+    "microservice",
+    "microservices",
+    "rest",
+    "restful",
+    "websockets"
+  ],
+  "author": "Eric Martindale",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/martindale/maki-remotes/issues"
+  },
+  "homepage": "https://github.com/martindale/maki-remotes",
+  "dependencies": {
+    "restler": "^3.3.0"
+  },
+  "devDependencies": {
+    "coveralls": "^2.11.4",
+    "istanbul": "^0.3.18",
+    "mocha": "^2.2.5"
+  }
+}
