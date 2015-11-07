@@ -7,7 +7,11 @@ function Remote(url, id) {
 
 Remote.prototype._get = function(url, cb) {
   var self = this;
-  rest.get( this.url + url ).on('complete', function(data) {
+  rest.get( this.url + url , {
+    headers: {
+      'Accept': 'application/json'
+    }
+  }).on('complete', function(data) {
     if (!data[ self.id ]) return cb(data);
     return cb(null, data);
   });
