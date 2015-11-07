@@ -1,6 +1,6 @@
 {
   "name": "maki-remote",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "bind to a remote service directly within a maki app",
   "main": "index.js",
   "scripts": {
