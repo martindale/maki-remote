@@ -13,30 +13,75 @@ function Remote(base, id) {
 
   this.host = parsed.host;
   this.path = parsed.path;
+  this.retries = 0;
 
   this.resourceMap = {};
 }
 
 util.inherits(Remote, require('events').EventEmitter);
 
-Remote.prototype.init = function(cb) {
+Remote.prototype.connect = function() {
   var self = this;
-  if (!cb) var cb = new Function();
+  var endpoint = 'ws://' + self.host + self.path;
+  
+  self.ws = new WebSocket(endpoint);
+
+  self.ws.on('open', self.emit.bind(self, 'open'));
+  self.ws.on('close', self.emit.bind(self, 'close'));
+  self.ws.on('error', self.emit.bind(self, 'error'));
+  self.ws.on('message', function(msg) {
+    self.emit('message', JSON.parse(msg));
+  });
+  
+  self.ws.on('open', function() {
+    self.retries = 0;
+  });
+
+  self.ws.on('close', reconnect);
+  self.ws.on('error', reconnect);
+
+  function reconnect () {
+    clearTimeout(self.timer);
+
+    self.retries++;
+    
+    var start = 50;
+    var max = 10;
+    var scale = (self.retries && self.retries < max) ? self.retries : max;    
+    var mult = start * scale;
+
+    self.next = (self.retries) ? mult : start;
+    self.timer = setTimeout(function connect () {
+      self.connect();
+    }, self.next);
+  }
+};
+
+Remote.prototype.init = function(opts, cb) {
+  var self = this;
+  if (typeof opts === 'function') {
+    cb = opts;
+    opts = {};
+  }
+
+  if (!cb) {
+    cb = new Function();
+  }
+  
+  if (!opts) {
+    opts = {};
+  }
 
   self._options('/', function(err, options) {
+    if (err) return cb(err);
+
     self.resources = options.resources;
 
     options.resources.forEach(function(r) {
       self.resourceMap[r.name] = r;
     });
-
-    var endpoint = 'ws://' + self.host + self.path;
-
-    self.ws = new WebSocket(endpoint);
-    self.ws.on('open', self.emit.bind(self, 'open'));
-    self.ws.on('message', function(msg) {
-      self.emit('message', JSON.parse(msg));
-    });
+    
+    self.connect();
 
     cb();
   });
@@ -51,6 +96,9 @@ Remote.prototype._options = function(url, cb) {
       'Accept': 'application/json'
     }
   }).on('complete', function(data) {
+    if (!data) return cb('Connection failure');
+    if (!data.resources) return cb('No resources found on remote');
+
     return cb(null, data);
   });
 };
