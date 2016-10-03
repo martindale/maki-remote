@@ -116,7 +116,7 @@ Remote.prototype._get = function(url, params, cb) {
       'Accept': 'application/json'
     }
   }).on('complete', function(data) {
-    if (!data[ self.id ]) return cb(data);
+    if (!data[ self.id ]) return cb(null, data);
     return cb(null, data);
   });
 };
