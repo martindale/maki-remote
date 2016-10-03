@@ -103,8 +103,14 @@ Remote.prototype._options = function(url, cb) {
   });
 };
 
-Remote.prototype._get = function(url, cb) {
+Remote.prototype._get = function(url, params, cb) {
   var self = this;
+  
+  if (typeof params === 'function') {
+    cb = params;
+    params = {};
+  }
+  
   rest.get( this.url + url , {
     headers: {
       'Accept': 'application/json'
