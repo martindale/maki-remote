@@ -116,7 +116,6 @@ Remote.prototype._get = function(url, params, cb) {
       'Accept': 'application/json'
     }
   }).on('complete', function(data) {
-    if (!data[ self.id ]) return cb(null, data);
     return cb(null, data);
   });
 };
@@ -132,7 +131,6 @@ Remote.prototype._post = function(url, data, cb) {
       'Accept': 'application/json'
     }
   }).on('complete', function(data) {
-    if (!data[ self.id ]) return cb(data);
     return cb(null, data);
   });
 };
@@ -152,7 +150,6 @@ Remote.prototype._put = function(url, data, cb) {
       'Accept': 'application/json'
     }
   }).on('complete', function(data) {
-    if (!data[ self.id ]) return cb(data);
     return cb(null, data);
   });
 };
@@ -169,7 +166,6 @@ Remote.prototype._patch = function(url, data, cb) {
     },
     data: data
   }).on('complete', function(data) {
-    if (!data[ self.id ]) return cb(data);
     return cb(null, data);
   });
 };
