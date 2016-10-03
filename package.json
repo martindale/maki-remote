@@ -1,6 +1,6 @@
 {
   "name": "maki-remote",
-  "version": "0.0.3",
+  "version": "0.3.0-pre",
   "description": "bind to a remote service directly within a maki app",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,10 @@
   },
   "homepage": "https://github.com/martindale/maki-remote",
   "dependencies": {
-    "restler": "^3.3.0"
+    "async": "^2.0.0-rc.6",
+    "node-uuid": "^1.4.7",
+    "restler": "^3.3.0",
+    "ws": "^1.1.1"
   },
   "devDependencies": {
     "coveralls": "^2.11.4",
